@@ -5,11 +5,13 @@ from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from tensorflow.keras.models import load_model
 from tensorflow.keras.applications.efficientnet import preprocess_input
+import os
 
 # === Configurações ===
-modelo_path = "modelo_final.keras"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+modelo_path = os.path.join(BASE_DIR, "modelo_final.keras")
 IMG_SIZE = (224, 224)
-THRESHOLD = 0.42  # valor fixo do seu ROC
+THRESHOLD = 0.42
 class_names = ["Benigno", "Maligno"]
 
 # === Carrega modelo uma vez ===
@@ -25,7 +27,7 @@ origins = [
 ]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,   # ou ["*"] para liberar todos
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
