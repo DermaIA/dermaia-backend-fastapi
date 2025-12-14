@@ -21,11 +21,8 @@ modelo = load_model(modelo_path)
 app = FastAPI()
 
 # === CORS para permitir React ===
-origins = [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-    "https://dermaia-ivkr86egl-gustavomiecs-projects.vercel.app",
-]
+origins = ["*"]
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
